@@ -1,85 +1,131 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>體力規劃器 (多方案對比版)</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>體力規劃器 (多方案對比版)</title>
 
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-  <!-- Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: "#3b82f6"
-          },
-          fontFamily: {
-            display: ["Inter", "PingFang TC", "Microsoft JhengHei", "sans-serif"]
-          }
+    <!-- Tailwind config（完整保留） -->
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3b82f6",
+                        "pastel-blue": "#eff6ff",
+                        "pastel-purple": "#f5f3ff",
+                        "pastel-red": "#fef2f2",
+                        "pastel-yellow": "#fffbeb",
+                        "pastel-green": "#f0fdf4",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "PingFang TC", "Microsoft JhengHei", "sans-serif"]
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        "2xl": "1rem",
+                        full: "9999px"
+                    },
+                },
+            },
         }
-      }
-    }
-  </script>
+    </script>
 
-  <!-- React 18 UMD -->
-  <script src="https://unpkg.com/react@18.2.0/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js" crossorigin></script>
+    <!-- Utilities（完整保留） -->
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .no-scrollbar::-webkit-scrollbar { display: none; }
+            .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+            .custom-scrollbar::-webkit-scrollbar {
+                height: 8px;
+                width: 8px;
+            }
+            .custom-scrollbar::-webkit-scrollbar-track {
+                background: #f1f5f9;
+                border-radius: 10px;
+            }
+            .custom-scrollbar::-webkit-scrollbar-thumb {
+                background: #cbd5e1;
+                border-radius: 10px;
+            }
+            .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                background: #94a3b8;
+            }
+        }
+    </style>
+
+    <!-- React 18 UMD（穩定版） -->
+    <script src="https://unpkg.com/react@18.2.0/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js" crossorigin></script>
 </head>
 
-<body class="bg-slate-50 font-display min-h-screen">
-  <div id="root"></div>
+<body class="bg-[#f8fafc] font-display text-slate-700 min-h-screen">
+    <div id="root"></div>
 
-  <script>
-    const { useState } = React;
-    const e = React.createElement;
+    <!-- React App -->
+    <script>
+        const { useState } = React;
+        const e = React.createElement;
 
-    function App() {
-      const [active, setActive] = useState("A");
+        function App() {
+            const [active, setActive] = useState("A");
 
-      const plans = {
-        A: { energy: 100 },
-        B: { energy: 80 },
-        C: { energy: 60 }
-      };
+            const plans = {
+                A: { energy: 100 },
+                B: { energy: 80 },
+                C: { energy: 60 }
+            };
 
-      return e("div", { className: "max-w-xl mx-auto p-6" },
+            return e(
+                "div",
+                { className: "max-w-3xl mx-auto p-6" },
 
-        e("h1", { className: "text-2xl font-bold mb-4" }, "體力規劃器"),
+                e("h1", {
+                    className: "text-3xl font-bold text-primary mb-6"
+                }, "體力規劃器"),
 
-        e("div", { className: "flex gap-2 mb-6" },
-          Object.keys(plans).map(key =>
-            e("button", {
-              key,
-              onClick: () => setActive(key),
-              className:
-                "flex-1 px-4 py-2 rounded " +
-                (active === key
-                  ? "bg-primary text-white"
-                  : "bg-white border text-slate-700")
-            }, "方案 " + key)
-          )
-        ),
+                e("div", {
+                    className: "flex gap-3 mb-6"
+                },
+                    Object.keys(plans).map(key =>
+                        e("button", {
+                            key,
+                            onClick: () => setActive(key),
+                            className:
+                                "flex-1 px-4 py-2 rounded-lg transition " +
+                                (active === key
+                                    ? "bg-primary text-white"
+                                    : "bg-white border text-slate-700 hover:bg-slate-50")
+                        }, "方案 " + key)
+                    )
+                ),
 
-        e("div", {
-          className: "bg-white rounded-lg shadow p-4"
-        },
-          e("p", { className: "text-lg" },
-            "目前方案：方案 ", active
-          ),
-          e("p", { className: "mt-2 text-slate-600" },
-            "體力值：", plans[active].energy
-          )
-        )
-      );
-    }
+                e("div", {
+                    className: "bg-white rounded-xl p-5 shadow-sm"
+                },
+                    e("p", { className: "text-lg mb-2" },
+                        "目前方案：方案 ", active
+                    ),
+                    e("p", { className: "text-slate-600" },
+                        "體力值：", plans[active].energy
+                    )
+                )
+            );
+        }
 
-    const root = ReactDOM.createRoot(document.getElementById("root"));
-    root.render(e(App));
-  </script>
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(e(App));
+    </script>
 </body>
 </html>
