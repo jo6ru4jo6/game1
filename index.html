@@ -1,3 +1,52 @@
-<body style="background:red">
-  <h1 style="color:white;font-size:40px">TEST OK</h1>
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>體力規劃器 (多方案對比版)</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: "#3b82f6" },
+          fontFamily: {
+            display: ["Inter", "PingFang TC", "Microsoft JhengHei", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- React 18 UMD (穩定) -->
+  <script src="https://unpkg.com/react@18.2.0/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js" crossorigin></script>
+</head>
+
+<body class="bg-slate-50 font-display min-h-screen">
+  <div id="root"></div>
+
+  <script>
+    const e = React.createElement;
+
+    function App() {
+      return e("div", { className: "p-8 text-center" },
+        e("h1", { className: "text-3xl font-bold text-primary mb-4" }, "體力規劃器"),
+        e("p", null, "React + Tailwind 已成功渲染"),
+        e("button", {
+          className: "mt-4 px-4 py-2 bg-primary text-white rounded"
+        }, "測試按鈕")
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(e(App));
+  </script>
 </body>
+</html>
