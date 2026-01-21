@@ -8,14 +8,16 @@
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
 
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          colors: { primary: "#3b82f6" },
+          colors: {
+            primary: "#3b82f6"
+          },
           fontFamily: {
             display: ["Inter", "PingFang TC", "Microsoft JhengHei", "sans-serif"]
           }
@@ -24,7 +26,7 @@
     }
   </script>
 
-  <!-- React 18 UMD (穩定) -->
+  <!-- React 18 UMD -->
   <script src="https://unpkg.com/react@18.2.0/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js" crossorigin></script>
 </head>
@@ -33,15 +35,46 @@
   <div id="root"></div>
 
   <script>
+    const { useState } = React;
     const e = React.createElement;
 
     function App() {
-      return e("div", { className: "p-8 text-center" },
-        e("h1", { className: "text-3xl font-bold text-primary mb-4" }, "體力規劃器"),
-        e("p", null, "React + Tailwind 已成功渲染"),
-        e("button", {
-          className: "mt-4 px-4 py-2 bg-primary text-white rounded"
-        }, "測試按鈕")
+      const [active, setActive] = useState("A");
+
+      const plans = {
+        A: { energy: 100 },
+        B: { energy: 80 },
+        C: { energy: 60 }
+      };
+
+      return e("div", { className: "max-w-xl mx-auto p-6" },
+
+        e("h1", { className: "text-2xl font-bold mb-4" }, "體力規劃器"),
+
+        e("div", { className: "flex gap-2 mb-6" },
+          Object.keys(plans).map(key =>
+            e("button", {
+              key,
+              onClick: () => setActive(key),
+              className:
+                "flex-1 px-4 py-2 rounded " +
+                (active === key
+                  ? "bg-primary text-white"
+                  : "bg-white border text-slate-700")
+            }, "方案 " + key)
+          )
+        ),
+
+        e("div", {
+          className: "bg-white rounded-lg shadow p-4"
+        },
+          e("p", { className: "text-lg" },
+            "目前方案：方案 ", active
+          ),
+          e("p", { className: "mt-2 text-slate-600" },
+            "體力值：", plans[active].energy
+          )
+        )
       );
     }
 
