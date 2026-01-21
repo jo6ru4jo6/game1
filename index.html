@@ -1,66 +1,28 @@
-
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>體力規劃器 (多方案對比版)</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-    <script>
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#3b82f6",
-                        "pastel-blue": "#eff6ff",
-                        "pastel-purple": "#f5f3ff",
-                        "pastel-red": "#fef2f2",
-                        "pastel-yellow": "#fffbeb",
-                        "pastel-green": "#f0fdf4",
-                    },
-                    fontFamily: {
-                        "display": ["Inter", "PingFang TC", "Microsoft JhengHei", "sans-serif"]
-                    },
-                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
-                },
-            },
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer utilities {
-            .no-scrollbar::-webkit-scrollbar { display: none; }
-            .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-            .custom-scrollbar::-webkit-scrollbar {
-                height: 8px;
-                width: 8px;
-            }
-            .custom-scrollbar::-webkit-scrollbar-track {
-                background: #f1f5f9;
-                border-radius: 10px;
-            }
-            .custom-scrollbar::-webkit-scrollbar-thumb {
-                background: #cbd5e1;
-                border-radius: 10px;
-            }
-            .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-                background: #94a3b8;
-            }
-        }
-    </style>
-<script type="importmap">
-{
-  "imports": {
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3"
-  }
-}
-</script>
+  <meta charset="utf-8">
+  <title>GitHub Pages JS 測試</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-[#f8fafc] font-display text-slate-700 min-h-screen">
-    <div id="root"></div>
+<body class="bg-slate-100 p-10">
+  <h1 class="text-3xl font-bold mb-6">體力規劃器（JS 測試）</h1>
+
+  <div class="flex gap-4">
+    <button id="a" class="px-4 py-2 bg-blue-600 text-white rounded">方案 A</button>
+    <button id="b" class="px-4 py-2 bg-blue-200 rounded">方案 B</button>
+  </div>
+
+  <p id="result" class="mt-6 text-lg"></p>
+
+  <script>
+    document.getElementById("a").onclick = () => {
+      document.getElementById("result").textContent = "你選擇了方案 A";
+    };
+    document.getElementById("b").onclick = () => {
+      document.getElementById("result").textContent = "你選擇了方案 B";
+    };
+  </script>
 </body>
 </html>
