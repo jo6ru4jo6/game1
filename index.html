@@ -2,27 +2,40 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="utf-8">
-  <title>GitHub Pages JS 測試</title>
+  <title>GitHub Pages React WORK 版</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- React UMD（Pages 一定能跑） -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
 </head>
 <body class="bg-slate-100 p-10">
-  <h1 class="text-3xl font-bold mb-6">體力規劃器（JS 測試）</h1>
-
-  <div class="flex gap-4">
-    <button id="a" class="px-4 py-2 bg-blue-600 text-white rounded">方案 A</button>
-    <button id="b" class="px-4 py-2 bg-blue-200 rounded">方案 B</button>
-  </div>
-
-  <p id="result" class="mt-6 text-lg"></p>
+  <div id="root"></div>
 
   <script>
-    document.getElementById("a").onclick = () => {
-      document.getElementById("result").textContent = "你選擇了方案 A";
-    };
-    document.getElementById("b").onclick = () => {
-      document.getElementById("result").textContent = "你選擇了方案 B";
-    };
+    const e = React.createElement;
+
+    function App() {
+      const [plan, setPlan] = React.useState("");
+
+      return e("div", {},
+        e("h1", { className: "text-3xl font-bold mb-6" }, "體力規劃器（React WORK）"),
+        e("div", { className: "flex gap-4" },
+          e("button", {
+            className: "px-4 py-2 bg-blue-600 text-white rounded",
+            onClick: () => setPlan("方案 A")
+          }, "方案 A"),
+          e("button", {
+            className: "px-4 py-2 bg-blue-200 rounded",
+            onClick: () => setPlan("方案 B")
+          }, "方案 B")
+        ),
+        plan && e("p", { className: "mt-6 text-lg" }, "你選擇了：" + plan)
+      );
+    }
+
+    ReactDOM.render(e(App), document.getElementById("root"));
   </script>
 </body>
 </html>
